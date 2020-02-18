@@ -14,7 +14,8 @@ app.use(express.json());
 const uri = process.env.DB_CONNECTION_STRING;
 mongoose.connect(uri,{
     useNewUrlParser:true,
-    useCreateIndex: true
+    useCreateIndex: true,
+    useUnifiedTopology: true
 });
 
 
@@ -31,10 +32,11 @@ connection.once('closed', () => {
 
 const exercisesRouter = require('./routes/exercises');
 const usersRouter = require('./routes/users');
+const debugRoute = require('./routes/debugroute');
 
-
-// app.use('/exercises',exercisesRouter);
-app.use('/usersRouter',usersRouter);
+app.use('/api/debug',debugRoute);
+app.use('/api/exercises',exercisesRouter);
+app.use('/api/users',usersRouter);
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
