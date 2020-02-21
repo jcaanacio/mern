@@ -35,8 +35,8 @@ const usersRouter = require('./routes/users');
 const debugRoute = require('./routes/debugroute');
 
 app.use('/api/debug',debugRoute);
-app.use('/api/exercises',exercisesRouter);
-app.use('/api/users',usersRouter);
+app.use('/api/exercise',exercisesRouter);
+app.use('/api/user',usersRouter);
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);

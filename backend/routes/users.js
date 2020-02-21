@@ -2,6 +2,13 @@ const router = require('express').Router();
 const User = require('../models/user.model');
 const Response = require('../controllers/response');
 const _ = require('lodash');
+
+
+
+/**
+ * Returns
+ * List of User();
+ */
 router.route('/').get((request,response) => {
     User.find()
         .then(users => response.json(new Response(true,users).toJson()))
@@ -9,8 +16,12 @@ router.route('/').get((request,response) => {
     ;
 });
 
+
+/**
+ * Returns
+ * An instance of User();
+ */
 router.route('/:id').get((request,response) => {
-    // return new Response (true,request.body.id);
     User.findById(request.params.id)
         .then(user => {
             const res = _.isNull(user) ? new Response(false,{}).toJson() : new Response(true,user).toJson() ;
@@ -20,14 +31,10 @@ router.route('/:id').get((request,response) => {
     ;
 });
 
-router.route('/:id').delete((request,response) => {
-    // return new Response (true,request.body.id);
-    User.findByIdAndDelete(request.params.id)
-        .then(user => response.json(new Response(true,user).toJson()))
-        .catch(err => response.status(400).json('Error: ' + err))
-    ;
-});
-
+/**
+ * Returns
+ * An instance of added User();
+ */
 router.route('/add').post( (request, response ) => {
     const username = request.body.username;
     const newUser = new User({username});
@@ -38,11 +45,34 @@ router.route('/add').post( (request, response ) => {
     ;
 });
 
-router.route('/:id').delete((request,response) => {
+/**
+ * Returns
+ * An instance of delete User();
+ */
+router.route('/delete/:id').delete((request,response) => {
     User.findByIdAndDelete(request.body.id)
         .then(users => response.json(new Response(true,users).toJson()))
         .catch(err => response.status(400).json('Error: ' + err))
     ;
+});
+
+
+/**
+ * Returns
+ * An instance of update User();
+ */
+router.route('/update/:id').put((request,response) => {
+    User.findByIdAndUpdate(request.body.id,request.body)
+        .then(user => {
+            console.log(request);
+            user.username = request.body.username;
+            user.save()
+                .then( () => response.json( new Response(true,user).toJson()) );
+            
+        })
+        .catch(err => response.status(400).json('Error: ' + err))
+    ;
+
 });
 
 
