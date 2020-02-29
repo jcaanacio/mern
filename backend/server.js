@@ -33,7 +33,7 @@ connection.once('closed', () => {
 const exercisesRouter = require('./routes/exercises.route');
 const usersRouter = require('./routes/users.route');
 const debugRoute = require('./routes/debugroute');
-const apiRouter = require('./routes/api.routes');
+
 
 app.use('/api/debug',debugRoute);
 app.use('/api/exercises',exercisesRouter);
