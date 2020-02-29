@@ -30,13 +30,14 @@ connection.once('closed', () => {
     console.log("MongoDB database connection closed");
 });
 
-const exercisesRouter = require('./routes/exercises');
-const usersRouter = require('./routes/users');
+const exercisesRouter = require('./routes/exercises.route');
+const usersRouter = require('./routes/users.route');
 const debugRoute = require('./routes/debugroute');
+const apiRouter = require('./routes/api.routes');
 
 app.use('/api/debug',debugRoute);
-app.use('/api/exercise',exercisesRouter);
-app.use('/api/user',usersRouter);
+app.use('/api/exercises',exercisesRouter);
+app.use('/api/users',usersRouter);
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
