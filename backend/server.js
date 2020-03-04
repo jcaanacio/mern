@@ -30,9 +30,9 @@ connection.once('closed', () => {
     console.log("MongoDB database connection closed");
 });
 
-const exercisesRouter = require('./routes/exercises.route');
-const usersRouter = require('./routes/users.route');
-const debugRoute = require('./routes/debugroute');
+const exercisesRouter = require('./routes/api/exercises.route');
+const usersRouter = require('./routes/api/users.route');
+const debugRoute = require('./routes/api/debugroute');
 
 
 app.use('/api/debug',debugRoute);
